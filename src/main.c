@@ -1,7 +1,6 @@
+#include <stdio.h>
 
-
-//main goes here
 void main() {
     //void for now
-    printf(" c implementation of a previously built app.");
+    printf(" c implementation of a previously built app.\n");
 }

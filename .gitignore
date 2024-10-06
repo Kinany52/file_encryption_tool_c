@@ -1,0 +1,24 @@
+# Ignore compiled object files
+*.o
+
+# Ignore compiled binary files
+build/
+*.exe
+*.out
+*.a
+*.so
+*.dll
+
+# Ignore temporary files
+*.log
+*.tmp
+*.swp
+*~
+
+# Ignore OS-specific files (e.g., macOS, Windows)
+.DS_Store
+Thumbs.db
+
+# Ignore editor-specific files
+.vscode/
+.idea/
