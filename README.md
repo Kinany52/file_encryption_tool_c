@@ -1,6 +1,6 @@
 # File Encryption/Decryption Tool
 
-This is a simple file encryption and decryption tool written in C. It uses XOR encryption to securely encode and decode files.
+This is a file encryption and decryption tool written in C. It uses XOR encryption to securely encode and decode files.
 
 ## Description
 
