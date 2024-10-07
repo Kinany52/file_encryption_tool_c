@@ -9,6 +9,9 @@ build/
 *.so
 *.dll
 
+# Ignore output files generated during tests
+output/
+
 # Ignore temporary files
 *.log
 *.tmp
