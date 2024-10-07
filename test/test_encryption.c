@@ -2,8 +2,18 @@
 #include <stdlib.h> 
 #include <string.h>
 #include "encryption.h"
-#include <sys/stat.h>
-#include <sys/types.h>
+
+//On Windows, the mkdir function has a different signature compared to Linux/Unix systems. 
+//To handle cross-platform compatibility (Windows vs Linux/macOS), 
+//you can check for the OS and use the appropriate function. 
+//For Windows, you will include <direct.h> and call _mkdir() instead of mkdir().
+#ifdef _WIN32
+#include <direct.h>  // For _mkdir on Windows
+#define mkdir _mkdir
+#else
+#include <sys/stat.h>  // For mkdir on Unix/Linux
+#include <sys/types.h> // For mode_t
+#endif
 
 // Helper function to read a file's content into a buffer
 char* read_file(const char* filename) {
@@ -75,11 +85,21 @@ int test_encryption_and_decryption(const char* input_filename, const char* encry
 void create_output_directory() {
     struct stat st = {0};
 
+    // Check if the directory exists
     if (stat("output", &st) == -1) {
+#ifdef _WIN32
+        // Windows: mkdir only takes the directory path
+        if (mkdir("output") != 0) {
+            perror("Failed to create output directory");
+            exit(EXIT_FAILURE);
+        }
+#else
+        // Unix/Linux: mkdir takes both path and mode (permissions)
         if (mkdir("output", 0700) != 0) {
             perror("Failed to create output directory");
             exit(EXIT_FAILURE);
         }
+#endif
     }
 }
 
