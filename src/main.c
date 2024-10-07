@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include "encryption.h"
 
-void main() {
+int main() {
     int choice;
     char inputFilePath[256], outputFilePath[256];
 
@@ -29,5 +29,5 @@ void main() {
         printf("Invalid choice!\n");
     }
 
-   
+    return 0; //program terminated successfully
 }
