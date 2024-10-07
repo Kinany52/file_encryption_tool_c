@@ -3,6 +3,7 @@
 
 # Ignore compiled binary files
 build/
+test/test_encryption
 *.exe
 *.out
 *.a
