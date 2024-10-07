@@ -2,6 +2,8 @@
 #include <stdlib.h> 
 #include <string.h>
 #include "encryption.h"
+#include <sys/stat.h>
+#include <sys/types.h>
 
 // Helper function to read a file's content into a buffer
 char* read_file(const char* filename) {
@@ -69,10 +71,26 @@ int test_encryption_and_decryption(const char* input_filename, const char* encry
     return 1; // Indicate test failure
 }
 
+// Function to create a directory if it doesn't exist
+void create_output_directory() {
+    struct stat st = {0};
+
+    if (stat("output", &st) == -1) {
+        if (mkdir("output", 0700) != 0) {
+            perror("Failed to create output directory");
+            exit(EXIT_FAILURE);
+        }
+    }
+}
+
 int main() {
-    const char* input_filename = "test_input.txt";
-    const char* encrypted_filename = "test_encrypted.txt";
-    const char* decrypted_filename = "test_decrypted.txt";
+    // Ensure output directory exists
+    create_output_directory();
+
+    // Use the output/ directory for test files
+    const char* input_filename = "output/test_input.txt";
+    const char* encrypted_filename = "output/test_encrypted.txt";
+    const char* decrypted_filename = "output/test_decrypted.txt";
 
     // Create a test input file
     write_file(input_filename, "This is a test for encryption!");
