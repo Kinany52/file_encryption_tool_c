@@ -23,8 +23,22 @@ char* read_file(const char* filename) {
         return NULL;
     }
 
-    fseek(file, 0, SEEK_END);
+    //Move the file pointer to the end and get the file size.
+    //If fseek() fails, the function prints an error message and returns NULL.
+    if (fseek(file, 0, SEEK_END) != 0) {
+        perror("Failed to seek to the end of the file");
+        fclose(file);
+        return NULL;
+    }
+    
     long file_size = ftell(file);
+    //If ftell() fails (returns -1L), an error message is printed, and the function returns NULL
+    if (file_size == -1L) {
+        perror("Failed to determine file size");
+        fclose(file);
+        return NULL;
+    }
+
     rewind(file);
 
     char* buffer = (char*)malloc(file_size + 1);  // Allocate memory for the file contents
@@ -34,6 +48,7 @@ char* read_file(const char* filename) {
         return NULL;
     }
 
+    // Read file content into buffer
     fread(buffer, 1, file_size, file);
     buffer[file_size] = '\0'; // Null-terminate the buffer
 
@@ -49,7 +64,15 @@ void write_file(const char* filename, const char* content) {
         return;
     }
 
-    fwrite(content, sizeof(char), strlen(content), file);
+    //Write content to file.
+    //Ensure that fwrite() writes the correct number of bytes. 
+    //If fwrite() doesn’t write all the data, an error message is printed.
+    size_t content_length = strlen(content);
+    size_t written = fwrite(content, sizeof(char), content_length, file);
+    if (written != content_length) {
+        perror("Failed to write all data to file");
+    }
+
     fclose(file);
 }
 
