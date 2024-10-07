@@ -4,7 +4,7 @@
 void main() {
     int choice;
     char inputFilePath[256], outputFilePath[256];
-    //void for now
+
     printf("File Encryption/Decryption Tool\n");
     printf("1. Encrypt a file\n");
     printf("2. Decrypt a file\n");
@@ -21,4 +21,13 @@ void main() {
         printf("Starting encryption...\n");
         encryptFile(inputFilePath, outputFilePath);
     }
+    else if (choice == 2) {
+        printf("Starting decryption...\n");
+        decryptFile(inputFilePath, outputFilePath);
+    }
+    else {
+        printf("Invalid choice!\n");
+    }
+
+   
 }

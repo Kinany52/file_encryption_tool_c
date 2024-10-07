@@ -25,3 +25,7 @@ void encryptFile(const char* inputFile, const char* outputFile) {
     fclose(inFile);
     fclose(outFile);
 }
+
+void decryptFile(const char* inputFile, const char* outputFile) {
+    encryptFile(inputFile, outputFile); //XOR decryption is the same as encryption but reversed
+}
