@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include "encryption.h"
 
 void main() {
     int choice;
@@ -16,5 +17,8 @@ void main() {
     printf("Enter output file path: ");
     scanf("%s", outputFilePath);
     
-    
+    if (choice == 1) {
+        printf("Starting encryption...\n");
+        encryptFile(inputFilePath, outputFilePath);
+    }
 }
